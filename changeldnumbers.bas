@@ -1,10 +1,14 @@
 Attribute VB_Name = "changeldnumbers"
 Option Explicit
 
+Public start As Integer
 Sub changeld_Click()
 'Call check
+
+
+start = InputBox("Enter Starting Number :")
 Call changetold
-'Call SortByRows
+Call SortByRows
 Call check
 End Sub
 Sub SortAllCols()
@@ -48,7 +52,7 @@ Dim lastrow As Long
 
  With ActiveSheet
         lastrow = .Range("AC" & .Rows.count).End(xlUp).row
-For rw = 13 To lastrow
+For rw = start To lastrow
 Range("CW" & rw & ":DA" & rw).Sort Key1:=Range("CW" & rw & ":DA" & rw), Order1:=xlDescending, Header:=xlGuess, _
 OrderCustom:=1, MatchCase:=False, Orientation:=xlLeftToRight
 Next rw
@@ -60,11 +64,12 @@ Sub changetold()
     Dim sTxt As String
     Dim lastrow As Long, i As Long
 
+
     With ActiveSheet
         lastrow = .Cells(.Rows.count, "AC").End(xlUp).row
     End With
 
-    For i = 13 To lastrow
+    For i = start To lastrow
         sTxt = Range("CW" & i)
 
         Select Case Len(sTxt)
@@ -77,7 +82,7 @@ Sub changetold()
     Next i
     
     
-      For i = 13 To lastrow
+      For i = start To lastrow
         sTxt = Range("cx" & i)
 
         Select Case Len(sTxt)
@@ -89,7 +94,7 @@ Sub changetold()
         End Select
     Next i
     
-      For i = 13 To lastrow
+      For i = start To lastrow
         sTxt = Range("cy" & i)
 
         Select Case Len(sTxt)
@@ -102,7 +107,7 @@ Sub changetold()
     Next i
     
     
-      For i = 13 To lastrow
+      For i = start To lastrow
         sTxt = Range("cz" & i)
 
         Select Case Len(sTxt)
@@ -114,7 +119,7 @@ Sub changetold()
         End Select
     Next i
     
-      For i = 13 To lastrow
+      For i = start To lastrow
         sTxt = Range("da" & i)
 
         Select Case Len(sTxt)
@@ -132,11 +137,11 @@ Sub check()
 Dim i As Long
 Dim lastrow As Long
 Dim cell As Variant
-ActiveSheet.Range("CW13").Select
+ActiveSheet.Range("CW" & start).Select
 
  With ActiveSheet
     lastrow = .Cells(.Rows.count, "AC").End(xlUp).row
-    For i = 1 To lastrow
+    For i = start To lastrow
 Range(ActiveCell, ActiveCell.End(xlToRight)).Select
 
 For Each cell In Selection
@@ -178,3 +183,4 @@ End With
 
 
 End Sub
+
